@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article • Plain Text Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    /* Article layout */
+    .container-article { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .article { background: var(--bg-light); border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem; border: 1px solid #eee; }
+    .crumbs { font-size: .95rem; margin: .5rem 0 1rem; color: var(--text-light); }
+    .crumbs a { color: var(--primary-color); text-decoration: none; }
+    .crumbs a:hover { text-decoration: underline; }
+
+    /* Video block: player + thumbnails */
+    .video-section { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .video-section h3 { margin: 0 0 .75rem; color: var(--primary-color); }
+    .yt-player {
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      border-radius: 8px; box-shadow: var(--shadow); border: 1px solid #eee; background: #000;
+    }
+    .yt-player iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .yt-strip {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+      gap: 12px; margin-top: 12px;
+    }
+    .yt-thumb {
+      display: grid; grid-template-rows: auto auto 1fr; gap: 6px; text-align: left;
+      background: var(--white); border: 1px solid #eee; border-radius: 8px; padding: 8px;
+      box-shadow: var(--shadow); text-decoration: none;
+      transition: transform .12s ease, box-shadow .2s ease;
+    }
+    .yt-thumb:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.06); }
+    .yt-thumb img { width: 100%; height: auto; border-radius: 6px; display: block; }
+    .yt-title { font-size: .93rem; font-weight: 600; color: var(--primary-color); line-height: 1.3; }
+    .yt-channel { font-size: .8rem; color: var(--text-light); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav Bar -->
+  <header class="topbar">
+    <nav class="nav" id="nav-menu">
+      <a href="support.html" title="Support">
+        <img src="assets/icons/support.png" alt="Support" class="nav-icon" />
+      </a>
+      <a href="education.html" title="Education">
+        <img src="assets/icons/education.png" alt="Education" class="nav-icon" />
+      </a>
+      <a href="solutions.html" title="Solutions">
+        <img src="assets/icons/solutions.png" alt="Solutions" class="nav-icon" />
+      </a>
+      <a href="contact.html" title="Contact">
+        <img src="assets/icons/contact.png" alt="Contact" class="nav-icon" />
+      </a>
+      <a href="index.html" title="Home">
+        <img src="assets/images/logo-mark.png" alt="Home" class="nav-icon" />
+      </a>
+    </nav>
+  </header>
+
+  <!-- Slim hero with clickable logo -->
+  <section class="hero-header" style="padding: 1.25rem 0 0.75rem;">
+    <div class="container hero-inner">
+      <div class="hero-logo-wrap">
+        <a href="index.html" title="Home">
+          <img src="assets/images/plain-text-logo.png" alt="Plain Text Solutions Logo" class="hero-logo" />
+        </a>
+      </div>
+      <div class="hero-text" style="margin-top: 60px;">
+        <h1 class="hero-brand">Plain Text Solutions</h1>
+      </div>
+    </div>
+    <img src="assets/images/hero-splash.png" alt="" class="hero-splash" />
+  </section>
+
+  <main class="container-article">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> · <a id="crumbCat" href="support.html">Support</a>
+    </nav>
+    <article id="article" class="article"></article>
+  </main>
+
+  <!-- Optional curated playlist fallback (IDs only) -->
+  <script>
+    const YT_PLAYLISTS = {
+      support: "",   // e.g., "PLxxxxxxxxxxxxxxxx"
+      education: ""  // e.g., "PLyyyyyyyyyyyyyyyy"
+    };
+    const YT_USE_NOCOOKIE = true;
+  </script>
+
+  <!-- Markdown loader + Worker-powered YouTube block (embed + thumbs) -->
+  <script>
+  (function () {
+    const WORKER_URL = "https://tight-queen-16ee.charlesroy858.workers.dev/api/yt";
+
+    const params = new URLSearchParams(location.search);
+    const path = params.get('path');
+
+    const articleEl = document.getElementById('article');
+    if (!path) { articleEl.textContent = 'No article specified.'; return; }
+
+    // Breadcrumb category from path
+    const isSupport = /\/support\//.test(path);
+    const crumb = document.getElementById('crumbCat');
+    if (crumb) {
+      crumb.textContent = isSupport ? 'Support' : 'Education';
+      crumb.href = isSupport ? 'support.html' : 'education.html';
+    }
+
+    function extractPlaylistOverride(md) {
+      const m = md.match(/<!--\s*yt-playlist:\s*([A-Za-z0-9_-]+)\s*-->/i);
+      return m ? m[1] : null;
+    }
+
+    // Per-article search override inside markdown
+    function extractQueryOverride(md) {
+      const m = md.match(/<!--\s*yt-query:\s*([^>]+?)\s*-->/i);
+      return m ? m[1].trim() : null;
+    }
+
+    function playlistEmbedHtml(playlistId) {
+      const base = YT_USE_NOCOOKIE ? 'https://www.youtube-nocookie.com' : 'https://www.youtube.com';
+      return `
+        <h3>Related videos</h3>
+        <div class="yt-player">
+          <iframe
+            src="${base}/embed/videoseries?list=${encodeURIComponent(playlistId)}&modestbranding=1&rel=0"
+            title="YouTube playlist"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>`;
+    }
+
+    function renderVideoBlock(mount, items) {
+      const primaryId = items?.[0]?.id?.videoId;
+      if (!primaryId) return false;
+
+      const restIds = items.slice(1).map(v => v?.id?.videoId).filter(Boolean);
+      const playlistParam = restIds.length ? `&playlist=${restIds.join(",")}` : "";
+      const base = YT_USE_NOCOOKIE ? 'https://www.youtube-nocookie.com' : 'https://www.youtube.com';
+
+      mount.innerHTML = `
+        <h3>Related videos</h3>
+        <div class="yt-player">
+          <iframe
+            src="${base}/embed/${primaryId}?modestbranding=1&rel=0${playlistParam}"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="yt-strip" id="ytStrip"></div>
+      `;
+
+      const strip = mount.querySelector('#ytStrip');
+      items.forEach(v => {
+        const id = v?.id?.videoId; if (!id) return;
+        const t = v.snippet || {};
+        const thumb = t.thumbnails?.medium?.url || t.thumbnails?.default?.url || "";
+        const a = document.createElement('a');
+        a.className = 'yt-thumb';
+        a.href = `https://www.youtube.com/watch?v=${id}`;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.innerHTML = `
+          ${thumb ? `<img src="${thumb}" alt="">` : ``}
+          <div class="yt-title">${t.title || 'Video'}</div>
+          <div class="yt-channel">${t.channelTitle || ''}</div>
+        `;
+        strip.appendChild(a);
+      });
+
+      return true;
+    }
+
+    async function fetchWorkerItems(query) {
+      const u = new URL(WORKER_URL);
+      u.searchParams.set('q', query);
+
+      const r = await fetch(u.toString(), { method: 'GET', mode: 'cors', credentials: 'omit' });
+      if (!r.ok) {
+        let msg = `Worker error ${r.status}`;
+        try {
+          const err = await r.json();
+          if (err && err.error) msg += `: ${err.error}`;
+        } catch (_) {}
+        throw new Error(msg);
+      }
+      const data = await r.json();
+      return Array.isArray(data.items) ? data.items : [];
+    }
+
+    // Make long titles more searchable
+    function cleanQuery(q) {
+      if (!q) return '';
+      q = q.replace(/[^\w\s-]/g, ' ').replace(/\s+/g, ' ').trim();
+      const words = q.split(' ').slice(0, 8); // keep it short
+      return words.join(' ');
+    }
+
+    // Load the Markdown, then build video block
+    fetch(encodeURI(path), { cache: 'no-cache' })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+      .then(async md => {
+        // Title from H1 or filename
+        const h1Match = md.match(/^\s*#\s+(.+)\s*$/m);
+        const derivedTitle = h1Match
+          ? h1Match[1].trim()
+          : decodeURIComponent(path.split('/').pop().replace(/\.md$/,''));
+
+        document.title = derivedTitle + ' • Plain Text Solutions';
+        articleEl.innerHTML = marked.parse(md, { mangle:false, headerIds:true });
+
+        // Decide the search query
+        const urlOverride = params.get('ytq');        // optional: ?ytq=override terms
+        const mdOverride  = extractQueryOverride(md); // optional: <!-- yt-query: terms -->
+        const chosen = urlOverride || mdOverride || derivedTitle;
+        let q = cleanQuery(chosen);
+
+        // Mount for videos
+        const mount = document.createElement('section');
+        mount.className = 'video-section';
+        document.querySelector('.container-article').appendChild(mount);
+
+        // Try Worker with cleaned query, then retry shorter if needed
+        try {
+          let items = await fetchWorkerItems(q);
+          if (!items.length) {
+            const shorter = q.split(' ').slice(0, 4).join(' ');
+            if (shorter && shorter !== q) {
+              items = await fetchWorkerItems(shorter);
+            }
+          }
+          if (items.length && renderVideoBlock(mount, items)) return;
+        } catch (_) {
+          // continue to fallback
+        }
+
+        // Fallback: curated playlist via markdown comment
+        const plOverride = extractPlaylistOverride(md);
+        const playlistId = plOverride || (isSupport ? YT_PLAYLISTS.support : YT_PLAYLISTS.education);
+        if (playlistId) {
+          mount.innerHTML = playlistEmbedHtml(playlistId);
+        } else {
+          mount.remove();
+        }
+      })
+      .catch(err => {
+        articleEl.innerHTML = '<p>Sorry, that article could not be loaded.</p>';
+        console.error('Article load failed:', err);
+      });
+  })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

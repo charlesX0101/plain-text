@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact • Plain Text Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    .contact-card, .contact-form {
+      background: var(--bg-light); border: 1px solid #eee; border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem;
+    }
+    .contact-card h3 { color: var(--primary-color); margin-bottom: .5rem; }
+    .contact-card p { color: var(--text-light); }
+
+    .form-row { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+    .form-row.single { grid-template-columns: 1fr; }
+    label { display: block; font-weight: 600; color: var(--primary-color); margin-bottom: .35rem; }
+    input[type="text"], input[type="email"], textarea, select {
+      width: 100%; padding: .85rem 1rem; border: 1px solid #e7e5e0; border-radius: 10px; background: var(--white);
+      font-size: 1rem; color: var(--text-dark); box-shadow: var(--shadow);
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { outline: 2px solid #e1f5f3; border-color: #b8ebe4; box-shadow: 0 0 0 3px #e1f5f3; }
+
+    .actions { margin-top: 1rem; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+    .btn { appearance: none; border: none; border-radius: 8px; cursor: pointer; padding: .85rem 1.25rem; font-weight: 600; font-size: 1rem;
+      background: var(--accent-color); color: var(--white); transition: background .2s ease, transform .1s ease; }
+    .btn:hover { background: var(--hover-color); transform: translateY(-1px); }
+    .note { font-size: .9rem; color: var(--text-light); }
+
+    .status { margin-top: .75rem; font-size: .95rem; padding: .75rem 1rem; border-radius: 8px; border: 1px solid #e7e5e0; background: #fff; }
+    .status.ok { border-color: #b8ebe4; background: #f3fbfa; }
+    .status.err { border-color: #f5c2c0; background: #fff5f5; }
+
+    /* Honeypot (hidden from users) */
+    .hp-wrap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* SMS reveal */
+    .sms-wrap { margin-top: 1rem; padding: 1rem; border: 1px dashed #e7e5e0; border-radius: 8px; background: #fff; }
+    .sms-number { font-weight: 600; color: var(--primary-color); }
+    .hidden { display: none; }
+    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+  </style>
+  <!-- reCAPTCHA v2 (Checkbox) -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+  <!-- Top Nav Bar -->
+  <header class="topbar">
+    <nav class="nav" id="nav-menu">
+      <a href="support.html" title="Support"><img src="assets/icons/support.png" alt="Support" class="nav-icon" /></a>
+      <a href="education.html" title="Education"><img src="assets/icons/education.png" alt="Education" class="nav-icon" /></a>
+      <a href="solutions.html" title="Solutions"><img src="assets/icons/solutions.png" alt="Solutions" class="nav-icon" /></a>
+      <a href="contact.html" title="Contact"><img src="assets/icons/contact.png" alt="Contact" class="nav-icon" /></a>
+      <a href="index.html" title="Home"><img src="assets/images/logo-mark.png" alt="Home" class="nav-icon" /></a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-header">
+    <div class="container hero-inner">
+      <div class="hero-logo-wrap">
+        <a href="index.html" title="Home"><img src="assets/images/plain-text-logo.png" alt="Plain Text Solutions Logo" class="hero-logo" /></a>
+      </div>
+      <div class="hero-text">
+        <h1 class="hero-brand">Plain Text Solutions</h1>
+        <h2 class="hero-title">Contact</h2>
+        <p class="hero-sub">Tell us what you need help with. We’ll get back to you shortly.</p>
+        <p class="hero-sub" style="margin-top:-0.5rem;"><a href="index.html">Home</a> · <strong>Contact</strong></p>
+      </div>
+    </div>
+    <img src="assets/images/hero-splash.png" alt="" class="hero-splash" />
+  </section>
+
+  <main class="contact-container">
+    <div class="contact-grid">
+      <!-- Info -->
+      <section class="contact-card">
+        <h3>Response times</h3>
+        <p>Most messages receive a reply within 1–2 business days. For urgent issues, describe the impact and your timezone.</p>
+        <h3 style="margin-top:1rem;">What to include</h3>
+        <p>Device/OS, error messages, steps already tried, and any deadlines. Links or screenshots help.</p>
+      </section>
+
+      <!-- Form -->
+      <section class="contact-form" aria-labelledby="contactFormTitle">
+        <h3 id="contactFormTitle" style="margin-bottom:.75rem; color: var(--primary-color);">Send a message</h3>
+
+        <form id="contactForm" action="https://formsubmit.co/el/wulupu" method="POST" novalidate>
+          <div class="form-row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic">
+                <option value="general">General</option>
+                <option value="support">Support</option>
+                <option value="education">Education</option>
+                <option value="solutions">Solutions</option>
+              </select>
+            </div>
+            <div>
+              <label for="urgency">Urgency</label>
+              <select id="urgency" name="urgency">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+          </div>
+
+          <!-- Honeypot (Formsubmit will ignore submissions with a value here) -->
+          <input type="text" name="_honey" class="hp-wrap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- Formsubmit options -->
+          <input type="hidden" name="_subject" value="Plain Text • New contact form submission" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <!-- Optional: add your own redirect page -->
+          <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html" /> -->
+
+          <!-- reCAPTCHA v2 (checkbox) -->
+          <div class="g-recaptcha" data-sitekey="6LfPMKQrAAAAAOn_Tl2BDqhmQud93PObnl8rlDyo"></div>
+
+          <div class="actions">
+            <button class="btn" type="submit">Send message</button>
+            <span class="note">We’ll never share your email.</span>
+          </div>
+
+          <div id="formStatus" class="status" role="status" aria-live="polite" style="display:none;"></div>
+        </form>
+
+        <!-- Optional SMS reveal (Google Voice) -->
+        <div class="sms-wrap">
+          <strong>Prefer to text?</strong>
+          <p class="note">Solve the CAPTCHA above, then click reveal to text us from your phone.</p>
+          <button id="revealSms" class="btn" type="button">Reveal text number</button>
+          <p id="smsLine" class="hidden">Text us at <span class="sms-number" id="smsNumber"></span> or tap <a id="smsLink" href="#" rel="nofollow">open Messages</a>.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Minimal client-side handling:
+    // - Validate fields
+    // - Ensure reCAPTCHA is solved (client check)
+    // - Submit via fetch to stay on-page
+    // - SMS number stays hidden until CAPTCHA solved
+
+    (function(){
+      const form = document.getElementById('contactForm');
+      const statusEl = document.getElementById('formStatus');
+      const revealBtn = document.getElementById('revealSms');
+      const smsLine = document.getElementById('smsLine');
+      const smsNumberEl = document.getElementById('smsNumber');
+      const smsLink = document.getElementById('smsLink');
+
+      // Google Voice number: (858) 215-5227
+      const SMS_COUNTRY = '+1';
+      const SMS_PARTA = '858';
+      const SMS_PARTB = '215';
+      const SMS_PARTC = '5227';
+      const smsPlain = `${SMS_COUNTRY}${SMS_PARTA}${SMS_PARTB}${SMS_PARTC}`;
+
+      function showStatus(msg, ok) {
+        statusEl.textContent = msg;
+        statusEl.className = 'status ' + (ok ? 'ok' : 'err');
+        statusEl.style.display = 'block';
+        if (ok) {
+          form.reset();
+          try { grecaptcha.reset(); } catch (_) {}
+        }
+      }
+
+      function solvedCaptcha() {
+        try {
+          const resp = grecaptcha.getResponse();
+          return resp && resp.length > 0;
+        } catch (_) {
+          return false; // API not loaded yet
+        }
+      }
+
+      // Reveal SMS only if captcha solved
+      revealBtn.addEventListener('click', () => {
+        if (!solvedCaptcha()) {
+          alert('Please complete the CAPTCHA first.');
+          return;
+        }
+        smsNumberEl.textContent = `(${SMS_PARTA}) ${SMS_PARTB}-${SMS_PARTC}`;
+        // Optional: add a default message body if desired
+        // const SMS_BODY = 'Hi Plain Text Solutions — I need help with...';
+        // smsLink.href = `sms:${smsPlain}?&body=${encodeURIComponent(SMS_BODY)}`;
+        smsLink.href = `sms:${smsPlain}`;
+        smsLine.classList.remove('hidden');
+        revealBtn.setAttribute('disabled', 'true');
+      });
+
+      // Progressive enhancement: AJAX submit
+      form.addEventListener('submit', async (e) => {
+        const email = form.querySelector('#email');
+        const name = form.querySelector('#name');
+        const message = form.querySelector('#message');
+        const honeypot = form.querySelector('input[name="_honey"]');
+
+        // Basic checks
+        if (honeypot && honeypot.value) {
+          e.preventDefault();
+          showStatus('Submission blocked (spam detected).', false);
+          return;
+        }
+        if (!email.value || !email.checkValidity() || !name.value || !message.value) {
+          e.preventDefault();
+          showStatus('Please fill out name, a valid email, and your message.', false);
+          return;
+        }
+        if (!solvedCaptcha()) {
+          e.preventDefault();
+          showStatus('Please complete the CAPTCHA.', false);
+          return;
+        }
+
+        // Submit with fetch to avoid redirect (Formsubmit supports this)
+        e.preventDefault();
+        const data = new FormData(form);
+
+        try {
+          const r = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: data
+          });
+          if (r.ok) {
+            showStatus('Thanks — your message has been sent.', true);
+          } else {
+            const err = await r.json().catch(() => ({}));
+            const msg = err?.errors?.[0]?.message || 'We could not send your message. Please try again later.';
+            showStatus(msg, false);
+          }
+        } catch (ex) {
+          showStatus('Network error. Please try again.', false);
+        }
+      });
+    })();
+  </script>
+
+  <script src="script.js"></script>
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">Copyright &copy; 2025 Plain Text Support Inc. All rights reserved.</p>
+    <nav class="footer-nav">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="legal.html">Legal</a>
+      <a href="sitemap.html">Site Map</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+```
+

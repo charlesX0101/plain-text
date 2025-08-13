@@ -1,0 +1,252 @@
+[
+  {
+    "title": "Building a home workstation for creators on a budget",
+    "path": "/content/education/Building_Home_Workstation.md",
+    "category": "education"
+  },
+  {
+    "title": "Detecting and Avoiding Phishing, Scam Emails, and Smishing",
+    "path": "/content/education/Decteting_Avoiding_Phishing.md",
+    "category": "education"
+  },
+  {
+    "title": "Device Compatibility: Understanding Drivers, Updates, and Hardware Support",
+    "path": "/content/education/Device_Compatibility.md",
+    "category": "education"
+  },
+  {
+    "title": "Device Upgrade Planning: How to Migrate Safely",
+    "path": "/content/education/Device_Upgrade.md",
+    "category": "education"
+  },
+  {
+    "title": "Disk Cleanup, SSD Health Checks, and Storage Tips",
+    "path": "/content/education/Disk_Clean_Up.md",
+    "category": "education"
+  },
+  {
+    "title": "Guest Wi-Fi setup and safe network sharing",
+    "path": "/content/education/Guest_Wifi_Setup.md",
+    "category": "education"
+  },
+  {
+    "title": "How password managers actually work (and how to pick one)",
+    "path": "/content/education/How_Password_Managers_Work.md",
+    "category": "education"
+  },
+  {
+    "title": "Intro to open-source tools: why they matter, how to start",
+    "path": "/content/education/Intro_to_Open-Source_Tools.md",
+    "category": "education"
+  },
+  {
+    "title": "IoT security: protecting the smart devices in your life",
+    "path": "/content/education/Iot_Security.md",
+    "category": "education"
+  },
+  {
+    "title": "Local vs cloud backups: what you should really be doing",
+    "path": "/content/education/Local_Vs_Cloud_Backups.md",
+    "category": "education"
+  },
+  {
+    "title": "Mesh Wi-Fi basics: setup, optimization, troubleshooting",
+    "path": "/content/education/Mesh_Wifi_Basics.md",
+    "category": "education"
+  },
+  {
+    "title": "MFA Across All Your Accounts: Setup and Recovery Tips",
+    "path": "/content/education/MFA.md",
+    "category": "education"
+  },
+  {
+    "title": "Privacy settings walkthrough: Google, Apple, Microsoft",
+    "path": "/content/education/Privacy_Settings.md",
+    "category": "education"
+  },
+  {
+    "title": "Self-hosting basics: running Nextcloud or Jellyfin from home",
+    "path": "/content/education/Self-Hosting_Basics.md",
+    "category": "education"
+  },
+  {
+    "title": "Setting up a bootable USB recovery toolkit (multi-platform)",
+    "path": "/content/education/Setting_Up_Bootable_Recovery.md",
+    "category": "education"
+  },
+  {
+    "title": "Teaching others: helping non-tech users without taking over",
+    "path": "/content/education/Teaching_Tech_To_Others.md",
+    "category": "education"
+  },
+  {
+    "title": "Understanding Batteries, Battery Life, Software or Hardware?",
+    "path": "/content/education/Understanding_Batteries.md",
+    "category": "education"
+  },
+  {
+    "title": "Understanding the right to repair: what it means, what you can do",
+    "path": "/content/education/Understanding_The_Right_To_Repair.md",
+    "category": "education"
+  },
+  {
+    "title": "Using Event Viewer or Console to Identify Recurring Errors",
+    "path": "/content/education/Identify_Recurring_Errors.md",
+    "category": "education"
+  },
+  {
+    "title": "What a VPN really does (and when not to use one)",
+    "path": "/content/education/What_VPN_Does.md",
+    "category": "education"
+  },
+  {
+    "title": "What Are Updates? Why They Matter and How to Do Them",
+    "path": "/content/education/What_Are_Updates.md",
+    "category": "education"
+  },
+  {
+    "title": "What Happens When a Device Dies? Data Recovery, Replacement, Next Steps",
+    "path": "/content/education/When_Device_Dies.md",
+    "category": "education"
+  },
+  {
+    "title": "What is an Operating System?",
+    "path": "/content/education/What_Is_An_OS.md",
+    "category": "education"
+  },
+  {
+    "title": "What to Do If You Have Been Compromised: A Guide to Recovering from Digital Scams",
+    "path": "/content/education/If_You_Have_Been_Compromised.md",
+    "category": "education"
+  },
+  {
+    "title": "Where Can You Go to Continue Learning Online? From Free to University",
+    "path": "/content/education/Continue_Online_Learning.md",
+    "category": "education"
+  },
+  {
+    "title": "Apple ID Recovery When Trusted Device Is Lost",
+    "path": "/content/support/AppleID_Recovery.md",
+    "category": "support"
+  },
+  {
+    "title": "Audio Not Working or Distorted on Windows/macOS",
+    "path": "/content/support/Audio_Not_Working.md",
+    "category": "support"
+  },
+  {
+    "title": "Browser Hijack Cleanup and Restoring Default Search",
+    "path": "/content/support/Browser_Hijack_Cleanup.md",
+    "category": "support"
+  },
+  {
+    "title": "Cleaning Up a Slow Computer with Built-in Tools",
+    "path": "/content/support/Cleaning_Up_Slow_Computer.md",
+    "category": "support"
+  },
+  {
+    "title": "Connecting a Printer Across Multiple Devices or Platforms",
+    "path": "/content/support/Connecting_Printer_Across_Devices.md",
+    "category": "support"
+  },
+  {
+    "title": "Diagnosing Frequent System Crashes or Restarts",
+    "path": "/content/support/Diagnosing_Crashes_ Restarts.md",
+    "category": "support"
+  },
+  {
+    "title": "Factory Resetting Your Router Safely",
+    "path": "/content/support/Factory_Reset_Router.md",
+    "category": "support"
+  },
+  {
+    "title": "Fixing Bluetooth Pairing Issues on PC and Mobile",
+    "path": "/content/support/Bluetooth_Pairing_Issues.md",
+    "category": "support"
+  },
+  {
+    "title": "Fixing Failed Software Installations (Permissions or Antivirus Interference)",
+    "path": "/content/support/Failed_Software_Installation.md",
+    "category": "support"
+  },
+  {
+    "title": "Fixing macOS/iOS App Crashes or Failure to Open",
+    "path": "/content/support/Fixing_Apple_App_Crashes.md",
+    "category": "support"
+  },
+  {
+    "title": "Fixing Printers Stuck “Offline” or Unresponsive",
+    "path": "/content/support/Fixing_Printers.md",
+    "category": "support"
+  },
+  {
+    "title": "Managing Limited Storage on Smartphones",
+    "path": "/content/support/Managing_Mobile_Storage.md",
+    "category": "support"
+  },
+  {
+    "title": "Microsoft Account Password Reset Failures",
+    "path": "/content/support/Microsoft_Account_Resset.md",
+    "category": "support"
+  },
+  {
+    "title": "Outlook or Gmail Not Syncing on Desktop/Mobile",
+    "path": "/content/support/Email_Not_Syncing.md",
+    "category": "support"
+  },
+  {
+    "title": "Recovering Access When Two-Factor / MFA Fails",
+    "path": "/content/support/Recovering_Access_ MFA Fails.md",
+    "category": "support"
+  },
+  {
+    "title": "Recovering from a Google \"Unrecognized Device\" Lockout",
+    "path": "/content/support/Recovering_from_Google_Lockout.md",
+    "category": "support"
+  },
+  {
+    "title": "Removing Malware or Fake Antivirus Software",
+    "path": "/content/support/Removing_Malware.md",
+    "category": "support"
+  },
+  {
+    "title": "Resolving “Connected but No Internet” Wi-Fi Issues",
+    "path": "/content/support/Connected_No_Internet.md",
+    "category": "support"
+  },
+  {
+    "title": "Resolving Failed Windows Updates (Loop or Error Code)",
+    "path": "/content/support/Resolving_Failed_WIndows_Updates.md",
+    "category": "support"
+  },
+  {
+    "title": "Restarting and Securing a Mesh Wi-Fi System",
+    "path": "/content/support/Restarting_Mesh_Wifi.md",
+    "category": "support"
+  },
+  {
+    "title": "Restoring Files After Accidental Deletion Without a Backup",
+    "path": "/content/support/Restoring_Files.md",
+    "category": "support"
+  },
+  {
+    "title": "Router Hardening: Changing Admin Login and Wi-Fi Security",
+    "path": "/content/support/Router_Hardening.md",
+    "category": "support"
+  },
+  {
+    "title": "Setting Up Backups on iPhone or Android",
+    "path": "/content/support/Setting_Up_Mobile_Backups.md",
+    "category": "support"
+  },
+  {
+    "title": "Spotting and Stopping Support Scams Targeting Seniors",
+    "path": "/content/support/Spotting_Scams.md",
+    "category": "support"
+  },
+  {
+    "title": "USB Devices Not Detected or Faulty Ports",
+    "path": "/content/support/USB_Not_Detected.md",
+    "category": "support"
+  }
+]

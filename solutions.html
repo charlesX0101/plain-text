@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solutions • Plain Text Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Centered icon row to match homepage grouping */
+    .icon-row {
+      background: var(--bg-light);
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .icon-row .icon-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;                 
+      padding: 1.5rem 0;
+      max-width: 780px;          
+      margin: 0 auto;            
+      flex-wrap: wrap;           
+    }
+    .icon-row .icon-item {
+      text-align: center;
+      min-width: 120px;          
+    }
+    .icon-row .svc-icon {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,0.06));
+    }
+    .icon-row .icon-caption {
+      margin-top: .5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: .95rem;
+    }
+
+    /* Fix CTA link to be a straight, button-style element */
+    .hero-cta {
+      display: inline-block;
+      white-space: nowrap;
+      padding: 0.75rem 1rem;
+      background-color: #ff4d5a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .hero-cta:hover {
+      background-color: #e34450;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav Bar -->
+  <header class="topbar">
+    <nav class="nav" id="nav-menu">
+      <a href="support.html" title="Support">
+        <img src="assets/icons/support.png" alt="Support" class="nav-icon" />
+      </a>
+      <a href="education.html" title="Education">
+        <img src="assets/icons/education.png" alt="Education" class="nav-icon" />
+      </a>
+      <a href="solutions.html" title="Solutions">
+        <img src="assets/icons/solutions.png" alt="Solutions" class="nav-icon" />
+      </a>
+      <a href="contact.html" title="Contact">
+        <img src="assets/icons/contact.png" alt="Contact" class="nav-icon" />
+      </a>
+      <!-- Home icon -->
+      <a href="index.html" title="Home">
+        <img src="assets/images/logo-mark.png" alt="Home" class="nav-icon" />
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-header">
+    <div class="container hero-inner">
+      <!-- Clickable logo back to Home -->
+      <div class="hero-logo-wrap">
+        <a href="index.html" title="Home">
+          <img src="assets/images/plain-text-logo.png" alt="Plain Text Solutions Logo" class="hero-logo" />
+        </a>
+      </div>
+      <div class="hero-text">
+        <h1 class="hero-brand">Plain Text Solutions</h1>
+        <h2 class="hero-title">Solutions</h2>
+        <p class="hero-sub">
+          Clear, practical help for home and small business. From quick fixes to full setups, the goal is to get you working again with as little hassle as possible.
+        </p>
+      </div>
+    </div>
+    <img src="assets/images/hero-splash.png" alt="" class="hero-splash" />
+  </section>
+
+  <!-- Icon Row (centered like homepage) -->
+  <section class="icon-row">
+    <div class="container">
+      <div class="icon-grid">
+        <div class="icon-item">
+          <img class="svc-icon" src="assets/icons/tools.png" alt="In-Home Services" />
+          <div class="icon-caption">Quick Fix</div>
+        </div>
+        <div class="icon-item">
+          <img class="svc-icon" src="assets/icons/in_home.png" alt="In-Home Services" />
+          <div class="icon-caption">In-Home</div>
+        </div>
+        <div class="icon-item">
+          <img class="svc-icon" src="assets/icons/man_work.png" alt="Business Solutions" />
+          <div class="icon-caption">Business</div>
+        </div>
+        <div class="icon-item">
+          <img class="svc-icon" src="assets/icons/support.png" alt="Support Services" />
+          <div class="icon-caption">Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Fix and Consultations -->
+  <section class="services">
+    <div class="container">
+      <h2>Quick Fix and Consultations</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>15–20 Minute Troubleshooting</h3>
+          <p>Short sessions for simple issues, questions, or guided checks. If it turns out to be larger, we set next steps right away.</p>
+        </div>
+        <div class="card">
+          <h3>Check-In and Triage</h3>
+          <p>A focused review to confirm symptoms, gather details, and decide on a repair or project plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Services -->
+  <section class="services">
+    <div class="container">
+      <h2>Support Services</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>Software Repair</h3>
+          <p>Clean reinstall or restore for computers and phones. Fix crashes, remove junk, and get you back to a stable system.</p>
+        </div>
+        <div class="card">
+          <h3>Account Recovery</h3>
+          <p>Help regaining access to accounts, resetting passwords, and improving security so it does not happen again.</p>
+        </div>
+        <div class="card">
+          <h3>New Tech Setup</h3>
+          <p>Advice on what to buy, then help unboxing, configuring, and migrating data so everything works the way you expect.</p>
+        </div>
+        <div class="card">
+          <h3>Network and IoT</h3>
+          <p>Home and small office networks designed, fixed, or upgraded. Wi-Fi tuning, wiring, smart devices, and basic firewall rules.</p>
+        </div>
+        <div class="card">
+          <h3>Hardware Work</h3>
+          <p>New PC builds and select part replacements. Not a full repair shop; parts availability and scope may limit what can be done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Solutions -->
+  <section class="services">
+    <div class="container">
+      <h2>Business Solutions</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>Digital Marketing Setup</h3>
+          <p>Social accounts, basic websites, and content workflows that you can run yourself once launched.</p>
+        </div>
+        <div class="card">
+          <h3>Core Tools and Platforms</h3>
+          <p>CRM, POS, and VOIP selection and setup. Guidance on accounts, roles, backups, and access policies.</p>
+        </div>
+        <div class="card">
+          <h3>Segmented Networks</h3>
+          <p>Small business networks with clear separation for admin, staff, lab, and guest devices to reduce risk and downtime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Work -->
+  <section class="services">
+    <div class="container">
+      <h2>How We Work</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>Simple Intake</h3>
+          <p>Describe the problem in plain language. Share any errors or screenshots. We confirm scope and schedule the next step.</p>
+        </div>
+        <div class="card">
+          <h3>Support Options</h3>
+          <p>Help by phone, video call, or on site when needed. Remote options are preferred for speed and safety.</p>
+        </div>
+        <div class="card">
+          <h3>No Surprises</h3>
+          <p>Clear communication from start to finish. If a task grows in scope, we pause and agree on the plan before moving on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="services">
+    <div class="container">
+      <h2>Ready to get help?</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>Let’s get your issue solved</h3>
+          <p>Start with a quick description of what you need. You will get a response with next steps and scheduling options.</p>
+          <p style="margin-top:0.75rem;">
+            <a class="hero-cta" href="contact.html">Contact Plain Text Solutions</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

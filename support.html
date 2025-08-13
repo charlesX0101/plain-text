@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support • Plain Text Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Search input styling */
+    .search-wrap { max-width: 760px; margin: 1rem 0 1.5rem; }
+    .search-input {
+      width: 100%;
+      padding: .95rem 1.15rem;
+      border-radius: 12px;
+      border: 1px solid #e7e5e0;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+    .search-input:focus {
+      outline: 2px solid #e1f5f3;
+      border-color: #b8ebe4;
+      box-shadow: 0 0 0 3px #e1f5f3;
+    }
+    /* Result and card styling */
+    .card {
+      text-decoration: none;
+      display: block;
+      background: var(--bg-light);
+      border-radius: 8px;
+      border: 1px solid #eee;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
+      color: inherit;
+    }
+    .card:hover {
+      box-shadow: 0 6px 14px rgba(0,0,0,.06);
+      transform: translateY(-1px);
+    }
+    .results { max-width: 860px; margin: 0 auto; }
+    .results-count { color: var(--text-light); font-size: .95rem; margin: 1rem 0 .5rem; }
+    .result-title { font-weight: 600; margin: 0 0 .25rem; }
+    .result-meta { font-size: .85rem; color: var(--text-light); margin: 0 0 .35rem; }
+    .result-snippet { font-size: .95rem; color: #3b3b3b; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav Bar -->
+  <header class="topbar">
+    <nav class="nav" id="nav-menu">
+      <a href="support.html" title="Support">
+        <img src="assets/icons/support.png" alt="Support" class="nav-icon" />
+      </a>
+      <a href="education.html" title="Education">
+        <img src="assets/icons/education.png" alt="Education" class="nav-icon" />
+      </a>
+      <a href="solutions.html" title="Solutions">
+        <img src="assets/icons/solutions.png" alt="Solutions" class="nav-icon" />
+      </a>
+      <a href="contact.html" title="Contact">
+        <img src="assets/icons/contact.png" alt="Contact" class="nav-icon" />
+      </a>
+      <!-- Home icon -->
+      <a href="index.html" title="Home">
+        <img src="assets/images/logo-mark.png" alt="Home" class="nav-icon" />
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-header">
+    <div class="container hero-inner">
+      <!-- Clickable logo back to Home -->
+      <div class="hero-logo-wrap">
+        <a href="index.html" title="Home">
+          <img src="assets/images/plain-text-logo.png" alt="Plain Text Solutions Logo" class="hero-logo" />
+        </a>
+      </div>
+
+      <div class="hero-text">
+        <h1 class="hero-brand">Plain Text Solutions</h1>
+        <h2 class="hero-title">Support</h2>
+        <p class="hero-sub">
+          Search all Plain Text guides, or try one of these featured support articles below.
+        </p>
+
+        <!-- Breadcrumb -->
+        <p class="hero-sub" style="margin-top:-0.5rem;">
+          <a href="index.html">Home</a> · <strong>Support</strong>
+        </p>
+
+        <!-- Search -->
+        <div class="search-wrap">
+          <input id="supportSearch" class="search-input" type="search"
+                 placeholder="Search support & education…"
+                 autocomplete="off" aria-label="Search support" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative Splash -->
+    <img src="assets/images/hero-splash.png" alt="" class="hero-splash" />
+  </section>
+
+  <!-- Featured Support Articles -->
+  <section class="services">
+    <div class="container">
+      <h2>Featured Support Articles</h2>
+      <div id="featureGrid" class="service-grid" role="list"></div>
+    </div>
+  </section>
+
+  <!-- Search Results -->
+  <section class="services">
+    <div class="container">
+      <h2>Results</h2>
+      <div class="results">
+        <div id="resultsCount" class="results-count"></div>
+        <div id="resultsList" class="results-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="assets/js/site-search.js" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      SiteSearch.init({
+        input: document.getElementById('supportSearch'),
+        resultsCountEl: document.getElementById('resultsCount'),
+        resultsEl: document.getElementById('resultsList'),
+        featureGridEl: document.getElementById('featureGrid'),
+        manifestUrl: './content/manifest.json',
+        featureCount: 3,
+        featureCategory: 'support',
+        prefetchAll: true
+      });
+    });
+  </script>
+  <script src="script.js"></script>
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">Copyright &copy; 2025 Plain Text Support Inc. All rights reserved.</p>
+    <nav class="footer-nav">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="legal.html">Legal</a>
+      <a href="sitemap.html">Site Map</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+

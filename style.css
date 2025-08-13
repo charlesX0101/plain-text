@@ -1,0 +1,293 @@
+:root {
+  --primary-color: #1C2A36;
+  --accent-color: #F35F5C;
+  --hover-color: #2FA39C;
+  --text-dark: #2C2C2C;
+  --text-light: #4a4a4a;
+  --bg-light: #FAF9F6;
+  --white: #ffffff;
+  --shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--white);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Navbar */
+.topbar {
+  background: var(--primary-color);
+  height: 56px;
+  position: relative;
+}
+.topbar .nav {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 1rem;
+}
+.topbar .nav a {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.topbar .nav a:hover {
+  transform: scale(1.2);
+}
+.nav-icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Hero Section */
+.hero-header {
+  position: relative;
+  background: var(--bg-light);
+  padding: 3rem 0 2rem;
+}
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1100px;
+}
+
+/* Logo Alignment Adjusted */
+.hero-logo-wrap {
+  position: absolute;
+  top: 20px;
+  left: 26.25rem;
+}
+.hero-logo {
+  height: 80px;
+  width: auto;
+}
+
+.hero-text {
+  margin-top: 60px;
+  max-width: 650px;
+}
+.hero-brand {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.hero-title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+.hero-cta {
+  background: var(--accent-color);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.hero-cta:hover {
+  background: var(--hover-color);
+}
+.hero-splash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 360px;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Icon Grid */
+.icon-links {
+  padding: 3rem 0;
+  background: var(--bg-light);
+}
+.icon-grid {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.icon-card {
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.icon-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+.icon-img {
+  width: 80px;
+  transition: transform 0.2s ease;
+}
+.icon-card span {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+.icon-card:hover .icon-img {
+  transform: scale(1.2);
+}
+
+/* Services Section */
+.services {
+  padding: 4rem 1rem;
+}
+.services h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+.service-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
+  justify-content: center;
+}
+.card {
+  background: var(--bg-light);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+.card h3 {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-inner {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  .hero-logo-wrap {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+  }
+  .hero-logo {
+    height: 64px;
+  }
+  .hero-text {
+    margin-top: 50px;
+  }
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .hero-splash {
+    height: 240px;
+    opacity: 0.3;
+  }
+}
+
+/* YouTube related block */
+.video-section { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+.video-section h3 { margin: 0 0 .75rem; color: var(--primary-color); }
+.yt-player { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+  border-radius: 8px; box-shadow: var(--shadow); border: 1px solid #eee; background: #000; }
+.yt-player iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
+.yt-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 12px; margin-top: 12px; }
+.yt-thumb { display: grid; grid-template-rows: auto auto 1fr; gap: 6px; text-align: left;
+  background: var(--white); border: 1px solid #eee; border-radius: 8px; padding: 8px;
+  box-shadow: var(--shadow); cursor: pointer; transition: transform .12s ease, box-shadow .2s ease; }
+.yt-thumb:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.06); }
+.yt-thumb img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.yt-title { font-size: .93rem; font-weight: 600; color: var(--primary-color); line-height: 1.3; }
+.yt-channel { font-size: .8rem; color: var(--text-light); }
+
+
+/* Footer: centered and width-aligned with main content */
+.site-footer {
+  background-color: var(--bg-light);
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  max-width: 1100px;      /* match your page/content width */
+  margin: 0 auto;         /* center within page */
+  padding: 0 1rem;        /* same side padding as sections */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;/* center both copy and links as a group */
+  gap: 0.75rem 1.5rem;    /* vertical and horizontal gaps */
+  text-align: center;
+}
+
+.footer-copy {
+  margin: 0;
+  color: var(--text-light);
+  flex: 0 0 auto;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+/* Document pages (privacy, terms, legal, sitemap) */
+.doc {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+.doc h2 {
+  text-align: left;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin: 1.25rem 0 .5rem;
+}
+.doc p { color: var(--text-light); margin: .5rem 0 1rem; }
+.doc ul { margin: .5rem 0 1rem 1.25rem; }
+.doc li { margin: .25rem 0; }
+.doc a { color: var(--primary-color); }
+
