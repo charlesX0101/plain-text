@@ -1,7 +1,7 @@
 # Building a home workstation for creators on a budget
 
 ## Introduction
-You can build a capable home workstation for creative work—such as photo editing, video production, graphic design, music creation, or 3D modeling—without spending a fortune. The key is to balance performance, upgrade potential, and cost, focusing your budget on the parts that will give you the most benefit for your specific creative needs.
+You can build a good home workstation for creative tasks, like photo editing, video production, graphic design, music creation, or 3D modeling, without spending a lot. The key is to balance performance, upgrade potential, and cost. Focus your budget on the parts that will provide the most benefit for your specific creative needs.
 
 ## Step 1: Define your workload
 Different creative fields demand different hardware priorities:
