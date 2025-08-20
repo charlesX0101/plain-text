@@ -36,7 +36,6 @@
     .hidden { display: none; }
     @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
   </style>
-  <!-- reCAPTCHA v2 (Checkbox) -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -122,7 +121,6 @@
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
 
-          <!-- reCAPTCHA v2 (checkbox) -->
           <div class="g-recaptcha" data-sitekey="6LfPMKQrAAAAAOn_Tl2BDqhmQud93PObnl8rlDyo"></div>
 
           <div class="actions">
@@ -143,7 +141,6 @@
     </div>
   </main>
 
-  <!-- Script to verify reCAPTCHA with Cloudflare Worker -->
   <script>
     (function(){
       const form = document.getElementById('contactForm');
@@ -168,17 +165,21 @@
           const verifyResp = await fetch('https://recaptcha-verify.charlesroy858.workers.dev/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token, expectedAction: 'submit' })
+            body: JSON.stringify({ token })
           });
+
           const verifyData = await verifyResp.json();
+          console.log('reCAPTCHA verify response:', verifyData);
 
           if (verifyResp.ok && verifyData.success) {
             const data = new FormData(form);
+
             const r = await fetch(form.action, {
               method: 'POST',
               headers: { 'Accept': 'application/json' },
               body: data
             });
+
             if (r.ok) {
               showStatus('Thanks — your message has been sent.', true);
               form.reset();
@@ -186,12 +187,16 @@
             } else {
               showStatus('Could not send your message. Please try again later.', false);
             }
+
           } else {
-            showStatus('reCAPTCHA verification failed.', false);
+            showStatus('reCAPTCHA verification failed. Please try again.', false);
             grecaptcha.reset();
           }
+
         } catch (err) {
+          console.error('Error during verification:', err);
           showStatus('Network error. Please try again.', false);
+          grecaptcha.reset();
         }
       });
     })();
