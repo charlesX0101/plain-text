@@ -77,7 +77,7 @@
       <section class="contact-form" aria-labelledby="contactFormTitle">
         <h3 id="contactFormTitle" style="margin-bottom:.75rem; color: var(--primary-color);">Send a message</h3>
 
-        <form id="contactForm" action="https://formsubmit.co/ajax/el/wulupu" method="POST" novalidate>
+        <form id="contactForm" action="https://formsubmit.co/el/wulupu" method="POST" novalidate>
           <div class="form-row">
             <div>
               <label for="name">Name</label>
@@ -142,65 +142,52 @@
   </main>
 
   <script>
-    (function(){
-      const form = document.getElementById('contactForm');
-      const statusEl = document.getElementById('formStatus');
+(function(){
+  const form = document.getElementById('contactForm');
+  const statusEl = document.getElementById('formStatus');
 
-      function showStatus(msg, ok) {
-        statusEl.textContent = msg;
-        statusEl.className = 'status ' + (ok ? 'ok' : 'err');
-        statusEl.style.display = 'block';
-      }
+  function showStatus(msg, ok) {
+    statusEl.textContent = msg;
+    statusEl.className = 'status ' + (ok ? 'ok' : 'err');
+    statusEl.style.display = 'block';
+  }
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // stop native submit until we verify
 
-        const token = grecaptcha.getResponse();
-        if (!token) {
-          showStatus('Please complete the CAPTCHA.', false);
-          return;
-        }
+    // v2 checkbox token lives in hidden textarea; this reads it
+    const token = grecaptcha.getResponse();
+    if (!token) {
+      showStatus('Please complete the CAPTCHA.', false);
+      return;
+    }
 
-        try {
-          const verifyResp = await fetch('https://recaptcha-verify.charlesroy858.workers.dev/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token })
-          });
-
-          const verifyData = await verifyResp.json();
-          console.log('reCAPTCHA verify response:', verifyData);
-
-          if (verifyResp.ok && verifyData.success) {
-            const data = new FormData(form);
-
-            const r = await fetch(form.action, {
-              method: 'POST',
-              headers: { 'Accept': 'application/json' },
-              body: data
-            });
-
-            if (r.ok) {
-              showStatus('Thanks — your message has been sent.', true);
-              form.reset();
-              grecaptcha.reset();
-            } else {
-              showStatus('Could not send your message. Please try again later.', false);
-            }
-
-          } else {
-            showStatus('reCAPTCHA verification failed. Please try again.', false);
-            grecaptcha.reset();
-          }
-
-        } catch (err) {
-          console.error('Error during verification:', err);
-          showStatus('Network error. Please try again.', false);
-          grecaptcha.reset();
-        }
+    try {
+      // Verify token with your Cloudflare Worker
+      const verifyResp = await fetch('https://recaptcha-verify.charlesroy858.workers.dev/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, expectedAction: 'submit' })
       });
-    })();
-  </script>
+      const verifyData = await verifyResp.json().catch(() => ({}));
+
+      if (verifyResp.ok && verifyData && verifyData.success) {
+        // IMPORTANT: now let the browser do a NORMAL POST to Formsubmit.
+        // Do NOT fetch() Formsubmit. Just submit the form.
+        form.submit();
+        // (No grecaptcha.reset() here—keep the token until after navigation)
+      } else {
+        showStatus('reCAPTCHA verification failed. Please try again.', false);
+        try { grecaptcha.reset(); } catch (_) {}
+      }
+    } catch (err) {
+      showStatus('Network error while verifying. Please try again.', false);
+      try { grecaptcha.reset(); } catch (_) {}
+    }
+  });
+})();
+</script>
+
 
   <script src="script.js"></script>
   <footer class="site-footer">
