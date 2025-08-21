@@ -153,12 +153,17 @@
     statusEl.style.display = 'block';
   }
 
-  // Wait until grecaptcha exists (handles slow script load)
-  function waitForRecaptcha(timeoutMs = 6000) {
+  // Wait until grecaptcha exists (handles slow load) and detect API (enterprise vs classic)
+  function waitForRecaptcha(timeoutMs = 8000) {
     const start = Date.now();
     return new Promise((resolve, reject) => {
       (function check() {
-        if (window.grecaptcha && typeof grecaptcha.getResponse === 'function') return resolve();
+        if (window.grecaptcha) {
+          const api = (grecaptcha.enterprise && typeof grecaptcha.enterprise.getResponse === 'function')
+                      ? grecaptcha.enterprise
+                      : grecaptcha;
+          if (typeof api.getResponse === 'function') return resolve(api);
+        }
         if (Date.now() - start > timeoutMs) return reject(new Error('reCAPTCHA not loaded'));
         setTimeout(check, 100);
       })();
@@ -166,19 +171,21 @@
   }
 
   form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // hold native submit until verified
 
+    let api;
     try {
-      await waitForRecaptcha();
-    } catch (err) {
-      showStatus('reCAPTCHA is still loading. Please wait a second and try again.', false);
+      api = await waitForRecaptcha();
+    } catch (_) {
+      showStatus('reCAPTCHA is still loading. Please wait a moment and try again.', false);
       return;
     }
 
+    // Try to get the token from the first widget on the page
     let token = '';
     try {
-      token = grecaptcha.getResponse(); // first widget on the page
-    } catch (err) {
+      token = api.getResponse(); // works for both classic and enterprise API objects
+    } catch (_) {
       showStatus('Could not read reCAPTCHA. Reload the page and try again.', false);
       return;
     }
@@ -189,13 +196,12 @@
     }
 
     try {
-      // Verify via your Cloudflare Worker
+      // Verify token via your Cloudflare Worker (lenient version)
       const verifyResp = await fetch('https://recaptcha-verify.charlesroy858.workers.dev/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token })
       });
-
       let verifyData = {};
       try { verifyData = await verifyResp.json(); } catch (_) {}
 
@@ -204,15 +210,16 @@
         form.submit();
       } else {
         showStatus('reCAPTCHA verification failed. Please try again.', false);
-        try { grecaptcha.reset(); } catch (_) {}
+        try { api.reset(); } catch (_) {}
       }
-    } catch (err) {
+    } catch (_) {
       showStatus('Network error while verifying. Please try again.', false);
-      try { grecaptcha.reset(); } catch (_) {}
+      try { api.reset(); } catch (_) {}
     }
   });
 })();
 </script>
+
 
 
   <script src="script.js"></script>
