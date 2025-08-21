@@ -36,7 +36,9 @@
     .hidden { display: none; }
     @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
   </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <!-- IMPORTANT: use Enterprise script so tokens match Enterprise verification -->
+  <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 <body>
 
@@ -77,6 +79,7 @@
       <section class="contact-form" aria-labelledby="contactFormTitle">
         <h3 id="contactFormTitle" style="margin-bottom:.75rem; color: var(--primary-color);">Send a message</h3>
 
+        <!-- Use NON-AJAX endpoint so the browser posts natively once verified -->
         <form id="contactForm" action="https://formsubmit.co/el/wulupu" method="POST" novalidate>
           <div class="form-row">
             <div>
@@ -116,11 +119,15 @@
             </div>
           </div>
 
+          <!-- Honeypot + Formsubmit options -->
           <input type="text" name="_honey" class="hp-wrap" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <input type="hidden" name="_subject" value="Plain Text • New contact form submission" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
+          <!-- Explicit redirect after submit so you don’t bounce to home -->
+          <input type="hidden" name="_next" value="https://YOUR_DOMAIN/thank-you.html" />
 
+          <!-- reCAPTCHA v2 (checkbox) with your site key -->
           <div class="g-recaptcha" data-sitekey="6LfPMKQrAAAAAOn_Tl2BDqhmQud93PObnl8rlDyo"></div>
 
           <div class="actions">
@@ -128,80 +135,5 @@
             <span class="note">We’ll never share your email.</span>
           </div>
 
-          <div id="formStatus" class="status" role="status" aria-live="polite" style="display:none;"></div>
-        </form>
-
-        <div class="sms-wrap">
-          <strong>Prefer to text?</strong>
-          <p class="note">Solve the CAPTCHA above, then click reveal to text us from your phone.</p>
-          <button id="revealSms" class="btn" type="button">Reveal text number</button>
-          <p id="smsLine" class="hidden">Text us at <span class="sms-number" id="smsNumber"></span> or tap <a id="smsLink" href="#" rel="nofollow">open Messages</a>.</p>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <script>
-(function(){
-  const form = document.getElementById('contactForm');
-  const statusEl = document.getElementById('formStatus');
-
-  function showStatus(msg, ok) {
-    statusEl.textContent = msg;
-    statusEl.className = 'status ' + (ok ? 'ok' : 'err');
-    statusEl.style.display = 'block';
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // stop native submit until we verify
-
-    // v2 checkbox token lives in hidden textarea; this reads it
-    const token = grecaptcha.getResponse();
-    if (!token) {
-      showStatus('Please complete the CAPTCHA.', false);
-      return;
-    }
-
-    try {
-      // Verify token with your Cloudflare Worker
-      const verifyResp = await fetch('https://recaptcha-verify.charlesroy858.workers.dev/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, expectedAction: 'submit' })
-      });
-      const verifyData = await verifyResp.json().catch(() => ({}));
-
-      if (verifyResp.ok && verifyData && verifyData.success) {
-        // IMPORTANT: now let the browser do a NORMAL POST to Formsubmit.
-        // Do NOT fetch() Formsubmit. Just submit the form.
-        form.submit();
-        // (No grecaptcha.reset() here—keep the token until after navigation)
-      } else {
-        showStatus('reCAPTCHA verification failed. Please try again.', false);
-        try { grecaptcha.reset(); } catch (_) {}
-      }
-    } catch (err) {
-      showStatus('Network error while verifying. Please try again.', false);
-      try { grecaptcha.reset(); } catch (_) {}
-    }
-  });
-})();
-</script>
-
-
-  <script src="script.js"></script>
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-copy">Copyright &copy; 2025 Plain Text Support Inc. All rights reserved.</p>
-      <nav class="footer-nav">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-        <a href="legal.html">Legal</a>
-        <a href="sitemap.html">Site Map</a>
-      </nav>
-    </div>
-  </footer>
-
-</body>
-</html>
+          <div id="formStatus" class="status" role="st
 
